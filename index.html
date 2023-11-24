@@ -1,0 +1,144 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quik Coach</title>
+    <meta
+      name="description"
+      content="challanging and encouraging users to set cardio fitness goals and find enjoyment in the monotonous"
+    />
+    <!-- materialize icons, css & js -->
+    <link type="text/css" href="/css/materialize.min.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link type="text/css" href="/css/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <link rel="manifest" href="/manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="/assets/icons/shark-96x96.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700" />
+    <meta name="theme-color" content="#aa7700" />
+  </head>
+  <body class="grey lighten-4">
+    <!-- top nav -->
+    <nav class="z-depth-0">
+      <div class="nav-wrapper container">
+        <a href="/">O<sub>2</sub><span>Shark</span></a>
+        <span class="right grey-text text-darken-1">
+          <i class="material-icons sidenav-trigger" data-target="side-menu"
+            >menu</i
+          >
+        </span>
+      </div>
+    </nav>
+
+    <!-- side nav -->
+    <ul id="side-menu" class="sidenav side-menu">
+      <li><a class="subheader">O<sub>2</sub>Shark</a></li>
+      <li><a href="/" class="waves-effect">Home</a></li>
+      <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+      <li><div class="divider"></div></li>
+      <li>
+        <a href="/pages/contact.html" class="waves-effect">
+          <i class="material-icons">mail_outline</i>Contact</a
+        >
+      </li>
+    </ul>
+
+    <div class="goals container grey-text text-darken-1">
+      <div class="card-panel goal white row">
+        <span class="material-icons"> directions_run </span>
+
+        <div class="goal-details">
+          <div class="goal-title">Run Arizona</div>
+          <div class="goal-ingredients">Latest Workout: 12/01/23</div>
+        </div>
+        <div class="goal-delete">
+          <i class="material-icons">delete_outline</i>
+        </div>
+      </div>
+      <div class="card-panel goal white row">
+        <!-- <img src="/img/dish.png" alt="goal thumb" /> -->
+        <span class="material-icons"> directions_bike </span>
+        <div class="goal-details">
+          <div class="goal-title">Edame Noodles</div>
+          <div class="goal-ingredients">Edame Beans, Noodels, Garlic oil</div>
+        </div>
+        <div class="goal-delete">
+          <i class="material-icons">delete_outline</i>
+        </div>
+      </div>
+      <div class="card-panel goal white row">
+        <span class="material-icons">pool </span>
+        <div class="goal-details">
+          <div class="goal-title">Edame Noodles</div>
+          <div class="goal-ingredients">Edame Beans, Noodels, Garlic oil</div>
+        </div>
+        <div class="goal-delete">
+          <i class="material-icons">delete_outline</i>
+        </div>
+      </div>
+      <div class="card-panel goal white row">
+        <span class="material-icons">rowing </span>
+        <div class="goal-details">
+          <div class="goal-title">Edame Noodles</div>
+          <div class="goal-ingredients">Edame Beans, Noodels, Garlic oil</div>
+        </div>
+        <div class="goal-delete">
+          <i class="material-icons">delete_outline</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="center">
+      <a
+        class="btn-floating btn-small btn-large add-btn sidenav-trigger"
+        data-target="side-form"
+      >
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+
+    <!-- add goal side nav -->
+    <div id="side-form" class="sidenav side-form">
+      <form class="add-goal container section">
+        <h6>New goal</h6>
+        <div class="divider"></div>
+        <div class="input-field">
+          <input
+            placeholder="e.g. Ninja soup"
+            id="title"
+            type="text"
+            class="validate"
+          />
+          <label for="title">Goal Title</label>
+        </div>
+        <div class="input-field">
+          <input
+            id="modality-input"
+            list="modalities"
+            class="validate"
+            type="text"
+          />
+          <datalist id="modalities">
+            <option value="Run"></option>
+            <option value="Bike"></option>
+            <option value="Row"></option>
+            <option value="Swim"></option>
+            <option value="Other"></option>
+          </datalist>
+          <label for="ingredients">Modality</label>
+        </div>
+        <div class="input-field center">
+          <button class="btn-small">Add</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
