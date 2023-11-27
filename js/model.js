@@ -5,8 +5,6 @@ let user = {
   goals: [],
 };
 
-console.log("hillo");
-
 async function loginUser() {
   const response = await fetch(`${URL}${PORT}/users/login`, {
     method: "POST",
@@ -20,7 +18,6 @@ async function loginUser() {
     credentials: "include",
   }).then((res) => res.json());
   user.email = response.user.email;
-  console.log(user.email, "user email");
   fetchGoals();
 }
 
@@ -34,5 +31,23 @@ async function fetchGoals() {
   });
   const goals = await response.json();
   user.goals = goals;
-  user.goals.forEach((goal) => renderGoals(goal));
+  user.goals.forEach((goal) => {
+    renderGoals(goal);
+    // const goalDeleteBtns = document.querySelectorAll(".goal-delete");
+    // goalDeleteBtns.forEach((btn) => {
+    //   btn.addEventListener("click", handleGoalDelete);
+    // });
+  });
+}
+
+async function addNewGoal(goal) {
+  const response = await fetch(`${URL}${PORT}/goals/create`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(goal),
+  }).then((res) => res.json());
+  console.log(response);
 }

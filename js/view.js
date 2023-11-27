@@ -1,4 +1,10 @@
+const goalsContainer = document.querySelector(".goals");
 const goals = document.querySelector(".goals");
+const goalForm = document.querySelector(".goal-form");
+// const title = document.getElementById("title-input").value;
+// const targetDistance = document.getElementById("distance-input").value;
+// const targetDate = document.getElementById("target-date-input").value;
+// const modality = document.getElementById("modality").value;
 
 document.addEventListener("DOMContentLoaded", function () {
   // nav menu
@@ -7,15 +13,45 @@ document.addEventListener("DOMContentLoaded", function () {
   // add recipe form
   const forms = document.querySelectorAll(".side-form");
   M.Sidenav.init(forms, { edge: "left" });
+  const elems = document.querySelectorAll("select");
+  M.FormSelect.init(elems);
+});
+
+goals.addEventListener("click", (event) => {
+  const delBtn = event.target.closest(".goal-delete");
+  if (delBtn) {
+    handleGoalDelete();
+  }
+});
+
+goalForm.addEventListener("submit", (event) => {
+  // event.preventDefault();
+  const title = document.getElementById("title-input").value;
+  const targetDistance = document.getElementById("distance-input").value;
+  const targetDate = document.getElementById("target-date-input").value;
+  const modality = document.getElementById("modality").value.toLowerCase();
+
+  const formData = {
+    user_email: user.email,
+    name: title,
+    target_distance: parseFloat(targetDistance),
+    start_date: Date.now(),
+    target_date: Math.floor(new Date(targetDate).getTime() / 1000),
+    modality,
+  };
+
+  console.log(formData);
+  addNewGoal(formData);
 });
 
 function renderGoals(data) {
   console.log(data);
-  console.log(data.id, data.name);
+  let iconHtml = renderModalityIcon(data.modality);
+  console.log(iconHtml);
   const html = `
     <div class="goals container grey-text text-darken-1">
     <div class="card-panel goal white row">
-      <span class="material-icons"> directions_run </span>
+      ${iconHtml}
 
       <div class="goal-details">
         <div class="goal-title">${data.name}</div>
@@ -28,4 +64,40 @@ function renderGoals(data) {
   </div>
   `;
   goals.innerHTML += html;
+}
+
+function handleGoalDelete(event) {
+  console.log("Delete button clicked!");
+}
+
+function renderModalityIcon(modality) {
+  let iconTag;
+  switch (modality) {
+    case "run":
+      iconTag = `<span class="material-symbols-outlined">
+      directions_run
+      </span>`;
+      break;
+    case "bike":
+      iconTag = `<span class="material-symbols-outlined">
+      directions_bike
+      </span>`;
+      break;
+    case "swim":
+      iconTag = `<span class="material-symbols-outlined">
+      pool
+      </span>`;
+      break;
+    case "row":
+      iconTag = `<span class="material-symbols-outlined">
+      rowing
+      </span>`;
+      break;
+    default:
+      iconTag = `<span class="material-symbols-outlined">
+      fitness_center
+      </span>`;
+  }
+
+  return iconTag;
 }
