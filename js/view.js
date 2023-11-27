@@ -10,17 +10,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function renderGoals(data) {
+  console.log(data);
+  console.log(data.id, data.name);
   const html = `
-    <div class="card-panel recipe white row" data-id="${data.id}">
-      <img src="/img/dish.png" alt="recipe thumb">
-      <div class="recipe-details">
-        <div class="recipe-title">${data.name}</div>
-        <div class="recipe-ingredients">${data.ingredients}</div>
+    <div class="goals container grey-text text-darken-1">
+    <div class="card-panel goal white row">
+      <span class="material-icons"> directions_run </span>
+
+      <div class="goal-details">
+        <div class="goal-title">${data.name}</div>
+        <div class="goal-ingredients">Target Distance: ${data.target_distance}</div>
       </div>
-      <div class="recipe-delete">
-        <i class="material-icons" data-id="${data.id}">delete_outline</i>
+      <div class="goal-delete">
+        <i class="material-icons">delete_outline</i>
       </div>
     </div>
+  </div>
   `;
   goals.innerHTML += html;
 }

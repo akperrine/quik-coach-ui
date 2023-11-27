@@ -1,6 +1,9 @@
 const URL = "http://localhost:";
 const PORT = "8000";
-let userEmail;
+let user = {
+  email: "",
+  goals: [],
+};
 
 console.log("hillo");
 
@@ -16,14 +19,13 @@ async function loginUser() {
     }),
     credentials: "include",
   }).then((res) => res.json());
-  userEmail = response.user.email;
-  console.log(userEmail, "user email");
+  user.email = response.user.email;
+  console.log(user.email, "user email");
   fetchGoals();
 }
-loginUser();
 
 async function fetchGoals() {
-  const response = await fetch(`${URL}${PORT}/goals/user/${userEmail}`, {
+  const response = await fetch(`${URL}${PORT}/goals/user/${user.email}`, {
     method: "GET",
     credentials: "include",
     headers: {
@@ -31,5 +33,6 @@ async function fetchGoals() {
     },
   });
   const goals = await response.json();
-  console.log(goals);
+  user.goals = goals;
+  user.goals.forEach((goal) => renderGoals(goal));
 }
