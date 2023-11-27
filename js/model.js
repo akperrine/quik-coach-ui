@@ -51,3 +51,21 @@ async function addNewGoal(goal) {
   }).then((res) => res.json());
   console.log(response);
 }
+
+async function deleteGoal(id) {
+  try {
+    const response = await fetch(`${URL}${PORT}/goals/delete`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    }).then((res) => res.json());
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}

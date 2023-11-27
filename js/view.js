@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
 goals.addEventListener("click", (event) => {
   const delBtn = event.target.closest(".goal-delete");
   if (delBtn) {
-    handleGoalDelete();
+    const parent = event.target.closest(".goals");
+    const goalId = parent.id;
+    handleGoalDelete(goalId);
   }
 });
 
@@ -47,9 +49,8 @@ goalForm.addEventListener("submit", (event) => {
 function renderGoals(data) {
   console.log(data);
   let iconHtml = renderModalityIcon(data.modality);
-  console.log(iconHtml);
   const html = `
-    <div class="goals container grey-text text-darken-1">
+    <div id="${data.id}" class="goals container grey-text text-darken-1">
     <div class="card-panel goal white row">
       ${iconHtml}
 
@@ -66,8 +67,10 @@ function renderGoals(data) {
   goals.innerHTML += html;
 }
 
-function handleGoalDelete(event) {
+function handleGoalDelete(id) {
+  console.log(id);
   console.log("Delete button clicked!");
+  deleteGoal(id);
 }
 
 function renderModalityIcon(modality) {
