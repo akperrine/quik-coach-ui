@@ -1,10 +1,11 @@
-const goalsContainer = document.querySelector(".goals");
+const goalsContainer = document.querySelector(".goals-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
-// const title = document.getElementById("title-input").value;
-// const targetDistance = document.getElementById("distance-input").value;
-// const targetDate = document.getElementById("target-date-input").value;
-// const modality = document.getElementById("modality").value;
+const modal = document.querySelector("#deleteModal");
+const overlay = document.querySelector(".overlay");
+const deleteModalYes = document.querySelector("#deleteYes");
+const deleteModalNo = document.querySelector("#deleteNo");
+let goalIdToDelete;
 
 document.addEventListener("DOMContentLoaded", function () {
   // nav menu
@@ -17,12 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
   M.FormSelect.init(elems);
 });
 
-goals.addEventListener("click", (event) => {
+goalsContainer.addEventListener("click", (event) => {
   const delBtn = event.target.closest(".goal-delete");
   if (delBtn) {
     const parent = event.target.closest(".goals");
     const goalId = parent.id;
-    handleGoalDelete(goalId);
+    // handleGoalDelete(goalId);
+    goalIdToDelete = goalId;
+    renderDeleteModal();
   }
 });
 
@@ -46,6 +49,25 @@ goalForm.addEventListener("submit", (event) => {
   addNewGoal(formData);
 });
 
+deleteModalYes.addEventListener("click", async () => {
+  if (goalIdToDelete !== "") {
+    await deleteGoal(goalIdToDelete);
+  }
+  closeDeleteModal();
+  goalsContainer.innerHTML = "";
+  fetchGoals();
+});
+deleteModalNo.addEventListener("click", () => {
+  goalIdToDelete = "";
+  closeDeleteModal();
+});
+
+function handleGoalDelete(id) {
+  console.log(id);
+  console.log("Delete button clicked!");
+  deleteGoal(id);
+}
+
 function renderGoals(data) {
   console.log(data);
   let iconHtml = renderModalityIcon(data.modality);
@@ -64,13 +86,7 @@ function renderGoals(data) {
     </div>
   </div>
   `;
-  goals.innerHTML += html;
-}
-
-function handleGoalDelete(id) {
-  console.log(id);
-  console.log("Delete button clicked!");
-  deleteGoal(id);
+  goalsContainer.innerHTML += html;
 }
 
 function renderModalityIcon(modality) {
@@ -103,4 +119,14 @@ function renderModalityIcon(modality) {
   }
 
   return iconTag;
+}
+
+function renderDeleteModal() {
+  modal.style.display = "block";
+  overlay.style.display = "block";
+}
+
+function closeDeleteModal() {
+  modal.style.display = "none";
+  overlay.style.display = "none";
 }

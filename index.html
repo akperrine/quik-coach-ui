@@ -52,10 +52,19 @@
       </li>
     </ul>
 
-    <div class="goals container grey-text text-darken-1">
+    <div id="deleteModal" class="modal">
+      <p>Are you sure you wish to delete goal?</p>
+
+      <button id="deleteYes" class="waves-effect waves-light btn">yes</button>
+
+      <button id="deleteNo" class="waves-effect waves-light btn">no</button>
+    </div>
+
+    <div class="goals-container">
+      <!-- <div class="goals container grey-text text-darken-1"> -->
       <!-- <div class="card-panel goal white row">
         <span class="material-icons"> directions_run </span>
-
+        
         <div class="goal-details">
           <div class="goal-title">Run Arizona</div>
           <div class="goal-ingredients">Latest Workout: 12/01/23</div>
@@ -64,6 +73,7 @@
           <i class="material-icons">delete_outline</i>
         </div>
       </div> -->
+      <!-- </div> -->
     </div>
 
     <div class="center">
@@ -123,6 +133,8 @@
         </div>
       </form>
     </div>
+
+    <div class="overlay"></div>
 
     <script src="/js/app.js"></script>
     <script src="/js/view.js"></script>
