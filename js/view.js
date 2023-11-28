@@ -5,9 +5,12 @@ const modal = document.querySelector("#deleteModal");
 const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#deleteYes");
 const deleteModalNo = document.querySelector("#deleteNo");
+
 let goalIdToDelete;
 
-document.addEventListener("DOMContentLoaded", function () {
+// EVENT LISTENERS
+
+document.addEventListener("DOMContentLoaded", () => {
   // nav menu
   const menus = document.querySelectorAll(".side-menu");
   M.Sidenav.init(menus, { edge: "right" });
@@ -20,12 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 goalsContainer.addEventListener("click", (event) => {
   const delBtn = event.target.closest(".goal-delete");
+  const parent = event.target.closest(".goal-toggle");
   if (delBtn) {
-    const parent = event.target.closest(".goals");
     const goalId = parent.id;
-    // handleGoalDelete(goalId);
     goalIdToDelete = goalId;
     renderDeleteModal();
+  } else {
+    console.log(parent);
+    toggleExpandGoal(parent);
   }
 });
 
@@ -63,17 +68,17 @@ deleteModalNo.addEventListener("click", () => {
 });
 
 function handleGoalDelete(id) {
-  console.log(id);
   console.log("Delete button clicked!");
   deleteGoal(id);
 }
+// Rendering Functions
 
 function renderGoals(data) {
   console.log(data);
   let iconHtml = renderModalityIcon(data.modality);
   const html = `
     <div id="${data.id}" class="goals container grey-text text-darken-1">
-    <div class="card-panel goal white row">
+    <div class="card-panel goal goal-toggle white row">
       ${iconHtml}
 
       <div class="goal-details">
@@ -130,3 +135,11 @@ function closeDeleteModal() {
   modal.style.display = "none";
   overlay.style.display = "none";
 }
+
+function toggleExpandGoal(element) {
+  element.classList.toggle("goal-expand");
+  element.classList.toggle("goal");
+  console.log(element.classList);
+}
+
+// Utility Functions
