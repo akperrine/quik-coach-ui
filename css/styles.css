@@ -48,6 +48,13 @@ nav .sidenav-trigger {
   grid-area: image;
   max-width: 60px;
 }
+.workout-icon > span {
+  /* background-color: #2f5233; */
+  /* width: 40px;
+  height: 40px; */
+  font-size: 2.5rem;
+}
+
 .goal-details {
   grid-area: details;
   margin-top: 6px;
@@ -64,7 +71,7 @@ nav .sidenav-trigger {
 .goal-title {
   font-weight: bold;
 }
-.goal-ingredients {
+.goal-target-distance {
   font-size: 0.8em;
 }
 

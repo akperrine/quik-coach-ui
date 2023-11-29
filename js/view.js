@@ -82,10 +82,10 @@ function renderGoals(data) {
   const html = `
     <div id="${data.id}" class="goals  container grey-text text-darken-1">
     <div class="card-panel goal goal-toggle white s12 row">
-      <div class="s12">${iconHtml}</div>
+      <div class="s12 workout-icon">${iconHtml}</div>
       <div class="goal-details s6">
       <div class="goal-title">${data.name}</div>
-      <div class="goal-ingredients">Target Distance: ${data.target_distance}</div>
+      <div class="goal-target-distance">Target Distance: ${data.target_distance}</div>
       <div class="goal-dropdown-outer">
       <svg width="100" height="100">
       <defs>
