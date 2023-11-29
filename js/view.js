@@ -96,21 +96,27 @@ function renderGoals(data) {
       <div class="goal-details s6">
       <div class="goal-title">${data.name}</div>
       <div class="goal-target-distance">Target Distance: ${data.target_distance}</div>
-      <div class="goal-dropdown-outer no-display">
+      <div class="goal-dropdown-container no-display">
+      <div class="goal-dropdown-outer">
       <svg width="100" height="100">
       <defs>
       <linearGradient id="GradientColor">
-        <stop offset="0%" stop-color="#76b947" />
-        <stop offset="100%" stop-color="#2f5233" />
+      <stop offset="0%" stop-color="#76b947" />
+      <stop offset="100%" stop-color="#2f5233" />
       </linearGradient>
-    </defs>
-        <circle />
-    </svg>
-        <div class="goal-dropdown-inner">
-          <div class="percent-complete">
-            ${percentComp}%
-          </div>
-        </div>
+      </defs>
+      <circle />
+      </svg>
+      <div class="goal-dropdown-inner">
+      <div class="percent-complete">
+      ${percentComp}%
+      </div>
+      </div>
+      </div>
+      <div class="goal-dropdown-info">
+        <p>check space</p>
+        <span><button></button></span>
+      </div>
       </div>
       <div>
         
@@ -170,7 +176,7 @@ function closeDeleteModal() {
 function toggleExpandGoal(element) {
   element.classList.toggle("goal-expand");
   element.classList.toggle("goal");
-  let childDropdown = element.querySelector(".goal-dropdown-outer");
+  let childDropdown = element.querySelector(".goal-dropdown-container");
   childDropdown.classList.toggle("no-display");
 }
 

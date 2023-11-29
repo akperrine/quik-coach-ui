@@ -106,6 +106,12 @@ nav .sidenav-trigger {
   justify-content: center;
 }
 
+.goal-dropdown-info {
+  display: flex;
+  align-items: center;
+  /* padding: 0px; */
+}
+
 .percent-complete {
   font-weight: 600;
   font-size: 1.2rem;
@@ -120,18 +126,19 @@ circle {
   cy: 45;
   stroke-dasharray: 240;
   stroke-dashoffset: 240;
-  animation: anim 2s linear forwards;
+  animation: anim 1.2s linear forwards;
 }
 
 @keyframes anim {
   100% {
-    stroke-dashoffset: 10;
+    stroke-dashoffset: 150;
   }
 }
 
 svg {
+  transform: rotate(-90deg);
   position: absolute;
-  top: 0%;
+  top: -11%;
   left: 0%;
 }
 
