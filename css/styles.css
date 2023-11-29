@@ -76,9 +76,9 @@ nav .sidenav-trigger {
 }
 
 .goal-dropdown-outer {
+  /* display: none; */
   width: 90px;
   height: 90px;
-  /* padding: 9px; */
   padding: 9px;
   margin-top: 10px;
 
@@ -175,4 +175,8 @@ form .input-field {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 900;
+}
+
+.no-display {
+  display: none;
 }
