@@ -32,7 +32,7 @@ nav .sidenav-trigger {
   background-color: rebeccapurple;
   box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.1);
   display: grid;
-  grid-template-columns: 2fr 6fr 1fr;
+  /* grid-template-columns: 2fr 6fr 1fr; */
   grid-template-areas: "image details delete";
   position: relative;
 }
@@ -50,6 +50,10 @@ nav .sidenav-trigger {
   max-width: 60px;
 }
 .goal-details {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
   grid-area: details;
   margin-top: 6px;
 }
@@ -67,6 +71,58 @@ nav .sidenav-trigger {
 }
 .goal-ingredients {
   font-size: 0.8em;
+}
+
+.goal-dropdown-outer {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* margin: 0 auto; */
+  padding: 50px;
+  width: 90px;
+  height: 90px;
+  padding: 9px;
+  /* border: 1px solid var(--secondary); */
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(225, 225, 225, 0.497);
+  border-radius: 50%;
+  position: relative;
+}
+
+.goal-dropdown-inner {
+  position: absolute;
+  height: 65px;
+  width: 65px;
+  left: 13.5%;
+  top: 13.5%;
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(225, 225, 225, 0.1),
+    -0.5px -0.5px 0px rgba(225, 225, 225, 0.1),
+    0.5px 0.5px 5px 0px rgba(0, 0, 0, 0.15),
+    0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.percent-complete {
+  font-weight: 600;
+}
+
+circle {
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 14px;
+  r: 38px;
+  cx: 45;
+  cy: 45;
+}
+
+svg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
 }
 
 /* form-styles */

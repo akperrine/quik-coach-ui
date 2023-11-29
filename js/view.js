@@ -77,18 +77,33 @@ function renderGoals(data) {
   console.log(data);
   let iconHtml = renderModalityIcon(data.modality);
   const html = `
-    <div id="${data.id}" class="goals container grey-text text-darken-1">
-    <div class="card-panel goal goal-toggle white row">
-      ${iconHtml}
-
-      <div class="goal-details">
-        <div class="goal-title">${data.name}</div>
-        <div class="goal-ingredients">Target Distance: ${data.target_distance}</div>
+    <div id="${data.id}" class="goals  container grey-text text-darken-1">
+    <div class="card-panel goal goal-toggle white s12 row">
+      <div class="s12">${iconHtml}</div>
+      <div class="goal-details s6">
+      <div class="goal-title">${data.name}</div>
+      <div class="goal-ingredients">Target Distance: ${data.target_distance}</div>
+      <div class="goal-dropdown-outer">
+      <svg width="100" height="100">
+      <defs>
+      <linearGradient id="GradientColor">
+        <stop offset="0%" stop-color="#76b947" />
+        <stop offset="100%" stop-color="#2f5233" />
+      </linearGradient>
+    </defs>
+        <circle />
+    </svg>
+        <div class="goal-dropdown-inner">
+          <div class="percent-complete">
+            50%
+          </div>
+        </div>
+      </div>
       </div>
       <div class="goal-delete">
-        <i class="material-icons">delete_outline</i>
+      <i class="material-icons">delete_outline</i>
       </div>
-    </div>
+      </div>
   </div>
   `;
   goalsContainer.innerHTML += html;
