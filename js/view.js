@@ -5,8 +5,11 @@ const modal = document.querySelector("#deleteModal");
 const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#deleteYes");
 const deleteModalNo = document.querySelector("#deleteNo");
+let percentComplete = document.querySelector(".percent-complete");
 
 let goalIdToDelete;
+// TODO: Create percentage completion and attatch to the animation
+// TODO: Create toggle on click adding the extra
 
 // EVENT LISTENERS
 
