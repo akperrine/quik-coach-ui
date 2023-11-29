@@ -79,6 +79,16 @@ function handleGoalDelete(id) {
 function renderGoals(data) {
   console.log(data);
   let iconHtml = renderModalityIcon(data.modality);
+
+  // **Would potentially be better if API always return completed and empty workout array if not present
+  let completed = data.current_distance;
+  // if (!data.workouts) {
+  //   percentComp = 0;
+  // } else {
+  percentComp = Math.floor((completed / data.target_distance) * 100);
+  // }
+  console.log(completed, percentComp);
+
   const html = `
     <div id="${data.id}" class="goals  container grey-text text-darken-1">
     <div class="card-panel goal goal-toggle white s12 row">
@@ -98,9 +108,12 @@ function renderGoals(data) {
     </svg>
         <div class="goal-dropdown-inner">
           <div class="percent-complete">
-            50%
+            ${percentComp}%
           </div>
         </div>
+      </div>
+      <div>
+        
       </div>
       </div>
       <div class="goal-delete">
