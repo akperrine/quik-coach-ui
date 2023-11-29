@@ -108,6 +108,7 @@ nav .sidenav-trigger {
 
 .percent-complete {
   font-weight: 600;
+  font-size: 1.2rem;
 }
 
 circle {
@@ -117,6 +118,15 @@ circle {
   r: 38px;
   cx: 45;
   cy: 45;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  animation: anim 2s linear forwards;
+}
+
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 10;
+  }
 }
 
 svg {
