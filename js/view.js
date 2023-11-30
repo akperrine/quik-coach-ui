@@ -95,28 +95,39 @@ function renderGoals(data) {
       <div class="s12 workout-icon">${iconHtml}</div>
       <div class="goal-details s6">
       <div class="goal-title">${data.name}</div>
-      <div class="goal-target-distance">Target Distance: ${data.target_distance}</div>
+      <div class="goal-target-distance">Target Distance: ${data.target_distance}m</div>
       <div class="goal-dropdown-container no-display">
-      <div class="goal-dropdown-outer">
-      <svg width="100" height="100">
-      <defs>
-      <linearGradient id="GradientColor">
-      <stop offset="0%" stop-color="#76b947" />
-      <stop offset="100%" stop-color="#2f5233" />
-      </linearGradient>
-      </defs>
-      <circle />
-      </svg>
-      <div class="goal-dropdown-inner">
-      <div class="percent-complete">
-      ${percentComp}%
+        <div class="goal-dropdown-top-container">
+        <div class="goal-dropdown-outer">
+          <svg width="100" height="100">
+          <defs>
+          <linearGradient id="GradientColor">
+          <stop offset="0%" stop-color="#76b947" />
+          <stop offset="100%" stop-color="#2f5233" />
+          </linearGradient>
+          </defs>
+          <circle />
+          </svg>
+          <div class="goal-dropdown-inner">
+              <div class="percent-complete">
+              ${percentComp}%
+              </div>
+          </div>  
+          </div>
+          <div class="goal-dropdown-top-right">
+            <p><b>Completed:</b> ${completed}m</p>
+            <div class="last-workout-container">
+              <h6>Last Log</h6>
+              <p>01/02/2022</p>
+            </div>
+          </div
       </div>
-      </div>
+      
       </div>
       <div class="goal-dropdown-info">
-        <p>check space</p>
-        <span><button></button></span>
-      </div>
+        <button class="waves-effect waves-light workout-btn">
+        Add workout
+        </button>
       </div>
       <div>
         

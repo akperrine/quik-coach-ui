@@ -31,7 +31,7 @@ nav .sidenav-trigger {
   height: 15rem;
   box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.1);
   display: grid;
-  grid-template-columns: 2fr 6fr 1fr;
+  grid-template-columns: 2fr 7fr 1fr;
   grid-template-areas: "image details delete";
   position: relative;
 }
@@ -40,7 +40,7 @@ nav .sidenav-trigger {
   padding: 10px;
   box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.1);
   display: grid;
-  grid-template-columns: 2fr 6fr 1fr;
+  grid-template-columns: 2fr 7fr 1fr;
   grid-template-areas: "image details delete";
   position: relative;
 }
@@ -73,6 +73,17 @@ nav .sidenav-trigger {
 }
 .goal-target-distance {
   font-size: 0.8em;
+}
+
+.goal-dropdown-contianer {
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-dropdown-top-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .goal-dropdown-outer {
@@ -112,9 +123,54 @@ nav .sidenav-trigger {
   /* padding: 0px; */
 }
 
+.goal-dropdown-info > p {
+  height: 10px;
+  margin: 5px;
+}
+
 .percent-complete {
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+.goal-add-workout-contianer {
+  /* height: 200px; */
+  margin: 5px;
+}
+
+.goal-dropdown-info > button {
+  margin-top: 15px;
+  height: 25px;
+  color: blue;
+  font-size: 14px;
+}
+/* .goal-dropdown-top-container > p {
+  margin-left: 10px;
+} */
+
+.goal-dropdown-top-right {
+  margin-left: 8px;
+  /* display: flex; */
+  /* direction: row; */
+}
+
+.goal-dropdown-top-right > p {
+  margin-bottom: 0px;
+}
+
+.last-workout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.last-workout-container > h6 {
+  font-weight: 500;
+}
+
+.last-workout-container > p {
+  margin: 0px;
+  font-size: 12px;
 }
 
 circle {
