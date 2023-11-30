@@ -120,7 +120,6 @@ nav .sidenav-trigger {
 .goal-dropdown-info {
   display: flex;
   align-items: center;
-  /* padding: 0px; */
 }
 
 .goal-dropdown-info > p {
@@ -134,24 +133,34 @@ nav .sidenav-trigger {
 }
 
 .goal-add-workout-contianer {
-  /* height: 200px; */
   margin: 5px;
 }
 
 .goal-dropdown-info > button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  border: none;
   margin-top: 15px;
-  height: 25px;
+  /* height: 25px; */
   color: blue;
   font-size: 14px;
+  background-color: #76b947;
+  border-radius: 2px;
+  padding: 5px 10px;
+
+  text-decoration: none;
+  color: #fff;
+  /* background: var(--title); */
+  box-shadow: 2px 2px 3px rgba(90, 90, 90, 0.3);
+  text-align: center;
+  letter-spacing: 0.5px;
+  -webkit-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+  cursor: pointer;
 }
-/* .goal-dropdown-top-container > p {
-  margin-left: 10px;
-} */
 
 .goal-dropdown-top-right {
   margin-left: 8px;
-  /* display: flex; */
-  /* direction: row; */
 }
 
 .goal-dropdown-top-right > p {
