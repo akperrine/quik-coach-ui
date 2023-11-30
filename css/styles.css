@@ -194,14 +194,18 @@ circle {
   cy: 45;
   stroke-dasharray: 240;
   stroke-dashoffset: 240;
-  animation: anim 1.2s linear forwards;
 }
 
-@keyframes anim {
+/* .circle-animation { */
+/* transition: stroke-dashoffset 1.2s linear forwards; */
+/* stroke-dashoffset: 0; */
+/* } */
+
+/* @keyframes anim {
   100% {
-    stroke-dashoffset: 150;
+    stroke-dashoffset: 10;
   }
-}
+} */
 
 svg {
   transform: rotate(-90deg);

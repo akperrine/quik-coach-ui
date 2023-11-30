@@ -27,13 +27,23 @@ document.addEventListener("DOMContentLoaded", () => {
 goalsContainer.addEventListener("click", (event) => {
   const delBtn = event.target.closest(".goal-delete");
   const parent = event.target.closest(".goal-toggle");
+  const svgElement = parent.querySelector("circle");
+  const percentageText = parent.querySelector(".percent-complete").innerHTML;
+  let percent = parseInt(percentageText.split("%")[0]);
+
+  console.log(svgElement);
+
   if (delBtn) {
     const goalId = parent.id;
     goalIdToDelete = goalId;
     renderDeleteModal();
   } else {
-    console.log(parent);
     toggleExpandGoal(parent);
+    console.log(parent);
+    if (parent.classList.contains("goal-expand")) {
+      console.log(percent);
+      animateProgressBar(svgElement, percent);
+    }
   }
 });
 
@@ -87,7 +97,6 @@ function renderGoals(data) {
   // } else {
   percentComp = Math.floor((completed / data.target_distance) * 100);
   // }
-  console.log(completed, percentComp);
 
   const html = `
     <div id="${data.id}" class="goals  container grey-text text-darken-1">
@@ -99,7 +108,7 @@ function renderGoals(data) {
       <div class="goal-dropdown-container no-display">
         <div class="goal-dropdown-top-container">
         <div class="goal-dropdown-outer">
-          <svg width="100" height="100">
+          <svg id="bar-${data.id}" width="100" height="100">
           <defs>
           <linearGradient id="GradientColor">
           <stop offset="0%" stop-color="#76b947" />
@@ -192,6 +201,32 @@ function toggleExpandGoal(element) {
   element.classList.toggle("goal");
   let childDropdown = element.querySelector(".goal-dropdown-container");
   childDropdown.classList.toggle("no-display");
+}
+
+function animateProgressBar(svgElement, percentage) {
+  console.log("i ", svgElement);
+
+  let counter = 0;
+  let maxCounter = 100;
+  const totalOffset = 240;
+  let currentOffset = totalOffset;
+  const strokeDashoffsetSteps = totalOffset / maxCounter;
+
+  if (percentage > 0) {
+    let interval = setInterval(() => {
+      // update counter
+      counter += 1;
+      // update currentOffset
+      currentOffset -= strokeDashoffsetSteps;
+      console.log(counter, currentOffset);
+      if (counter === percentage) {
+        clearInterval(interval);
+      }
+      // update text
+      // update dashOffset
+      svgElement.style.strokeDashoffset = currentOffset;
+    }, 15);
+  }
 }
 
 // Utility Functions
