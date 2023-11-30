@@ -43,6 +43,8 @@ goalsContainer.addEventListener("click", (event) => {
     if (parent.classList.contains("goal-expand")) {
       console.log(percent);
       animateProgressBar(svgElement, percent);
+    } else {
+      svgElement.style.strokeDashoffset = 240;
     }
   }
 });
