@@ -115,7 +115,7 @@ function renderGoals(data) {
           </div>  
           </div>
           <div class="goal-dropdown-top-right">
-            <p><b>Completed:</b> ${completed}m</p>
+            <p><b>Complete:</b> ${completed}m</p>
             <div class="last-workout-container">
               <h6>Last Log</h6>
               <p>01/02/2022</p>
@@ -124,9 +124,12 @@ function renderGoals(data) {
       </div>
       
       </div>
-      <div class="goal-dropdown-info">
+      <div class="goal-dropdown-btn-container" >
         <button class="waves-effect waves-light workout-btn">
         Add workout
+        </button>
+        <button class="waves-effect waves-light workout-btn" style="background-color: var(--secondary)">
+        View Logs
         </button>
       </div>
       <div>
