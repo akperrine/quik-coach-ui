@@ -99,6 +99,13 @@ function renderGoals(data) {
   // } else {
   percentComp = Math.floor((completed / data.target_distance) * 100);
   // }
+  let lastWorkoutDate;
+  if (data.workouts) {
+    lastWorkoutDate = formatDate(data.workouts[data.workouts.length - 1].date);
+  } else {
+    lastWorkoutDate = "N/A";
+  }
+  console.log(lastWorkoutDate);
 
   const html = `
     <div id="${data.id}" class="goals  container grey-text text-darken-1">
@@ -129,7 +136,7 @@ function renderGoals(data) {
             <p><b>Complete:</b> ${completed}m</p>
             <div class="last-workout-container">
               <h6>Last Log</h6>
-              <p>01/02/2022</p>
+              <p>${lastWorkoutDate}</p>
             </div>
           </div
       </div>
@@ -220,7 +227,6 @@ function animateProgressBar(svgElement, percentage) {
       counter += 1;
       // update currentOffset
       currentOffset -= strokeDashoffsetSteps;
-      console.log(counter, currentOffset);
       if (counter === percentage) {
         clearInterval(interval);
       }
@@ -232,3 +238,13 @@ function animateProgressBar(svgElement, percentage) {
 }
 
 // Utility Functions
+function formatDate(unixDate) {
+  console.log(unixDate);
+  const date = new Date(unixDate);
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const year = String(date.getFullYear()).slice(-2);
+  console.log(day, month, year);
+  const dateFormat = `${month}/${day}/${year}`;
+  return dateFormat;
+}
