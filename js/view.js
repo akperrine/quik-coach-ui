@@ -8,8 +8,6 @@ const deleteModalNo = document.querySelector("#deleteNo");
 let percentComplete = document.querySelector(".percent-complete");
 
 let goalIdToDelete;
-// TODO: Create percentage completion and attatch to the animation
-// TODO: Create toggle on click adding the extra
 
 // EVENT LISTENERS
 
@@ -27,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 goalsContainer.addEventListener("click", (event) => {
   const delBtn = event.target.closest(".goal-delete");
   const parent = event.target.closest(".goal-toggle");
+  const addBtn = event.target.closest(".add-workout-btn");
+  const logBtn = event.target.closest(".view-log-btn");
   const svgElement = parent.querySelector("circle");
   const percentageText = parent.querySelector(".percent-complete").innerHTML;
   let percent = parseInt(percentageText.split("%")[0]);
@@ -37,6 +37,10 @@ goalsContainer.addEventListener("click", (event) => {
     const goalId = parent.id;
     goalIdToDelete = goalId;
     renderDeleteModal();
+  } else if (addBtn) {
+    console.log("ad");
+  } else if (logBtn) {
+    console.log("lg");
   } else {
     toggleExpandGoal(parent);
     console.log(parent);
@@ -85,6 +89,13 @@ deleteModalNo.addEventListener("click", () => {
 function handleGoalDelete(id) {
   console.log("Delete button clicked!");
   deleteGoal(id);
+}
+
+function addWorkoutBtnListener() {
+  let addWorkoutBtn = document.querySelector(".workout-btn");
+  addWorkoutBtn.addEventListener("click", () => {
+    console.log("cli");
+  });
 }
 // Rendering Functions
 
@@ -143,10 +154,10 @@ function renderGoals(data) {
       
       </div>
       <div class="goal-dropdown-btn-container" >
-        <button class="waves-effect waves-light workout-btn">
+        <button class="waves-effect waves-light workout-btn add-workout-btn">
         Add workout
         </button>
-        <button class="waves-effect waves-light workout-btn" style="background-color: var(--secondary)">
+        <button class="waves-effect waves-light workout-btn view-log-btn" style="background-color: var(--secondary)">
         View Logs
         </button>
       </div>

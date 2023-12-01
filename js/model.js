@@ -33,11 +33,8 @@ async function fetchGoals() {
   user.goals = goals;
   user.goals.forEach((goal) => {
     renderGoals(goal);
-    // const goalDeleteBtns = document.querySelectorAll(".goal-delete");
-    // goalDeleteBtns.forEach((btn) => {
-    //   btn.addEventListener("click", handleGoalDelete);
-    // });
   });
+  addWorkoutBtnListener();
 }
 
 async function addNewGoal(goal) {
