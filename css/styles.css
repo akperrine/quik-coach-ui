@@ -2,6 +2,7 @@
 :root {
   --primary: #b1d8b7;
   --secondary: #76b947;
+  --tertiary: #1f6a27;
   --title: #2f5233;
 }
 
@@ -25,12 +26,22 @@ nav .sidenav-trigger {
 .goals {
   margin-top: 20px;
 }
+.goal-expand {
+  border-radius: 8px;
+  padding: 10px;
+  height: 15rem;
+  box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-areas: "image details delete";
+  position: relative;
+}
 .card-panel.goal {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.1);
   display: grid;
-  grid-template-columns: 2fr 6fr 1fr;
+  grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas: "image details delete";
   position: relative;
 }
@@ -38,9 +49,18 @@ nav .sidenav-trigger {
   grid-area: image;
   max-width: 60px;
 }
+.workout-icon > span {
+  /* background-color: #2f5233; */
+  /* width: 40px;
+  height: 40px; */
+  font-size: 2.5rem;
+}
+
 .goal-details {
   grid-area: details;
   margin-top: 6px;
+  padding-left: 10px;
+  font-size: 15px;
 }
 .goal-delete {
   grid-area: delete;
@@ -49,27 +69,193 @@ nav .sidenav-trigger {
   right: 0px;
 }
 .goal-delete i {
-  font-size: 18px;
+  font-size: 20px;
 }
 .goal-title {
+  font-size: 1.2rem;
   font-weight: bold;
 }
-.goal-ingredients {
-  font-size: 0.8em;
+.goal-target-distance {
+  font-size: 1rem;
+}
+
+.goal-dropdown-contianer {
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-dropdown-top-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.goal-dropdown-outer {
+  /* display: none; */
+  width: 90px;
+  height: 90px;
+  padding: 9px;
+  margin-top: 10px;
+
+  /* border: 1px solid var(--secondary); */
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(225, 225, 225, 0.497);
+  border-radius: 50%;
+  position: relative;
+}
+
+.goal-dropdown-inner {
+  position: absolute;
+  height: 65px;
+  width: 65px;
+  left: 13.5%;
+  top: 13.5%;
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(225, 225, 225, 0.1),
+    -0.5px -0.5px 0px rgba(225, 225, 225, 0.1),
+    0.5px 0.5px 5px 0px rgba(0, 0, 0, 0.15),
+    0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.goal-dropdown-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.goal-dropdown-info > p {
+  height: 10px;
+  margin: 5px;
+}
+
+.percent-complete {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.goal-add-workout-contianer {
+  margin: 5px;
+}
+
+.goal-dropdown-btn-container > button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  border: none;
+  margin-top: 15px;
+  font-size: 14px;
+  background-color: var(--tertiary);
+  border-radius: 2px;
+  padding: 5px 10px;
+
+  text-decoration: none;
+  color: #fff;
+  /* background: var(--title); */
+  box-shadow: 2px 2px 3px rgba(90, 90, 90, 0.3);
+  text-align: center;
+  letter-spacing: 0.5px;
+  -webkit-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+  cursor: pointer;
+}
+
+.goal-dropdown-top-right {
+  margin-left: 8px;
+}
+
+.goal-dropdown-top-right > p {
+  margin-bottom: 0px;
+}
+
+.last-workout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.last-workout-container > h6 {
+  font-weight: 500;
+}
+
+.last-workout-container > p {
+  margin: 0px;
+  font-size: 12px;
+}
+
+circle {
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 14px;
+  r: 38px;
+  cx: 45;
+  cy: 45;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+}
+
+/* .circle-animation { */
+/* transition: stroke-dashoffset 1.2s linear forwards; */
+/* stroke-dashoffset: 0; */
+/* } */
+
+/* @keyframes anim {
+  100% {
+    stroke-dashoffset: 10;
+  }
+} */
+
+svg {
+  transform: rotate(-90deg);
+  position: absolute;
+  top: -11%;
+  left: 0%;
 }
 
 /* form-styles */
 .add-btn {
-  background: var(--title) !important;
+  background: var(--tertiary) !important;
 }
 input {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }
 .side-form button {
-  background: var(--title);
+  background: var(--tertiary);
   box-shadow: 1px 1px 3px rgba(90, 90, 90, 0.2);
 }
 form .input-field {
   margin-top: 30px;
+}
+
+/* modal componenets */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Overlay to cover the entire page when the modal is open */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+.no-display {
+  display: none;
 }

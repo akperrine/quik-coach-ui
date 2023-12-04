@@ -14,6 +14,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <link type="text/css" href="/css/styles.css" rel="stylesheet" />
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <link rel="manifest" href="/manifest.json" />
@@ -48,10 +52,25 @@
       </li>
     </ul>
 
-    <div class="goals container grey-text text-darken-1">
+    <div id="deleteModal" class="modal">
+      <p>Are you sure you wish to delete goal?</p>
+
+      <button id="deleteYes" class="waves-effect waves-light btn">yes</button>
+
+      <button id="deleteNo" class="waves-effect waves-light btn">no</button>
+    </div>
+
+    <!-- <defs>
+      <linearGradient id="GradientColor">
+        <stop offset="0%" stop-color="green" />
+        <stop offset="100%" stop-color="blue" />
+      </linearGradient>
+    </defs> -->
+    <div class="goals-container">
+      <!-- <div class="goals container grey-text text-darken-1"> -->
       <!-- <div class="card-panel goal white row">
         <span class="material-icons"> directions_run </span>
-
+        
         <div class="goal-details">
           <div class="goal-title">Run Arizona</div>
           <div class="goal-ingredients">Latest Workout: 12/01/23</div>
@@ -60,6 +79,7 @@
           <i class="material-icons">delete_outline</i>
         </div>
       </div> -->
+      <!-- </div> -->
     </div>
 
     <div class="center">
@@ -72,14 +92,14 @@
     </div>
 
     <!-- add goal side nav -->
-    <div id="side-form" class="sidenav side-form">
+    <div id="side-form" class="sidenav side-form goal-form">
       <form class="add-goal container section">
         <h6>New goal</h6>
         <div class="divider"></div>
         <div class="input-field">
           <input
-            placeholder="e.g. Ninja soup"
-            id="title"
+            placeholder="ex: run 100 miles"
+            id="title-input"
             type="text"
             class="validate"
           />
@@ -87,25 +107,40 @@
         </div>
         <div class="input-field">
           <input
-            id="modality-input"
-            list="modalities"
-            class="validate"
+            placeholder="160934"
+            id="distance-input"
             type="text"
+            class="validate"
           />
-          <datalist id="modalities">
-            <option value="Run"></option>
-            <option value="Bike"></option>
-            <option value="Row"></option>
-            <option value="Swim"></option>
-            <option value="Other"></option>
-          </datalist>
-          <label for="ingredients">Modality</label>
+          <label for="title">Target Distance</label>
+        </div>
+        <div class="input-field">
+          <input
+            name="target date"
+            id="target-date-input"
+            type="date"
+            class="validate"
+          />
+          <label for="title">Target Date</label>
+        </div>
+        <div class="input-field col s12">
+          <select id="modality">
+            <option value="" disabled selected>Select a modality</option>
+            <option value="Run">Run</option>
+            <option value="Bike">Bike</option>
+            <option value="Row">Row</option>
+            <option value="Swim">Swim</option>
+            <option value="Other">Other</option>
+          </select>
+          <label for="modality">Modality</label>
         </div>
         <div class="input-field center">
           <button class="btn-small">Add</button>
         </div>
       </form>
     </div>
+
+    <div class="overlay"></div>
 
     <script src="/js/app.js"></script>
     <script src="/js/view.js"></script>
