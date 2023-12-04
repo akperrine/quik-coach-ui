@@ -1,7 +1,7 @@
 const goalsContainer = document.querySelector(".goals-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
-const modal = document.querySelector("#deleteModal");
+const deleteGoalModal = document.querySelector("#deleteModal");
 const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#deleteYes");
 const deleteModalNo = document.querySelector("#deleteNo");
@@ -105,10 +105,14 @@ function renderGoals(data) {
 
   // **Would potentially be better if API always return completed and empty workout array if not present
   let completed = data.current_distance;
+
   // if (!data.workouts) {
   //   percentComp = 0;
   // } else {
   percentComp = Math.floor((completed / data.target_distance) * 100);
+  if (percentComp > 100) {
+    percentComplete = 100;
+  }
   // }
   let lastWorkoutDate;
   if (data.workouts) {
@@ -206,15 +210,18 @@ function renderModalityIcon(modality) {
   return iconTag;
 }
 
+// Render Modals
 function renderDeleteModal() {
-  modal.style.display = "block";
+  deleteGoalModal.style.display = "block";
   overlay.style.display = "block";
 }
 
 function closeDeleteModal() {
-  modal.style.display = "none";
+  deleteGoalModal.style.display = "none";
   overlay.style.display = "none";
 }
+
+function renderAddWorkoutModal() {}
 
 function toggleExpandGoal(element) {
   element.classList.toggle("goal-expand");
