@@ -31,7 +31,10 @@ goalsContainer.addEventListener("click", (event) => {
   const parent = event.target.closest(".goal-toggle");
   const addBtn = event.target.closest(".add-workout-btn");
   const logBtn = event.target.closest(".view-log-btn");
-  const svgElement = parent.querySelector("circle");
+  const progressElement = parent.querySelector(".goal-dropdown-outer");
+  // const circle = document.querySelector(`#circle-${sel.id}`);
+  // console.log("circl", circle);
+
   const percentageText = parent.querySelector(".percent-complete").innerHTML;
   let percent = parseInt(percentageText.split("%")[0]);
   if (delBtn) {
@@ -46,9 +49,11 @@ goalsContainer.addEventListener("click", (event) => {
     toggleExpandGoal(parent);
 
     if (parent.classList.contains("goal-expand")) {
-      animateProgressBar(svgElement, percent);
+      console.log("cont goal-exp", progressElement, percent);
+      animateProgressBar(progressElement, percent);
     } else {
-      svgElement.style.strokeDashoffset = 240;
+      const gradientValue = `conic-gradient(var(--tertiary) 0deg, white 0deg)`;
+      progressElement.style.setProperty("background", gradientValue);
     }
   }
 });
@@ -84,7 +89,6 @@ addWorkoutForm.addEventListener("submit", (e) => {
     modality: selectedGoal.modality,
   };
   addNewWorkout(workoutDto);
-  // TODO: Render out a toast
 });
 
 deleteModalYes.addEventListener("click", async () => {
@@ -145,20 +149,12 @@ function renderGoals(data) {
       <div class="goal-dropdown-container no-display">
         <div class="goal-dropdown-top-container">
         <div class="goal-dropdown-outer">
-          <svg id="bar-${data.id}" width="100" height="100">
-          <defs>
-          <linearGradient id="GradientColor">
-          <stop offset="0%" stop-color="#76b947" />
-          <stop offset="100%" stop-color="#2f5233" />
-          </linearGradient>
-          </defs>
-          <circle />
-          </svg>
           <div class="goal-dropdown-inner">
-              <div class="percent-complete">
+            <div class="percent-complete">
               ${percentComp}%
-              </div>
-          </div>  
+            </div>
+          </div>
+     
           </div>
           <div class="goal-dropdown-top-right">
             <p><b>Complete:</b> ${completed}m</p>
@@ -259,27 +255,60 @@ function toggleExpandGoal(element) {
   childDropdown.classList.toggle("no-display");
 }
 
-function animateProgressBar(svgElement, percentage) {
+function animateProgressBar(progressElement, percentage) {
+  let cardComponent = progressElement.closest(".goal-toggle");
+  console.log(cardComponent);
   let counter = 0;
-  let maxCounter = 100;
-  const totalOffset = 240;
-  let currentOffset = totalOffset;
-  const strokeDashoffsetSteps = totalOffset / maxCounter;
+  let speed = 50;
+  let progess = setInterval(() => {
+    counter++;
+    console.log(counter);
 
-  if (percentage > 0) {
-    let interval = setInterval(() => {
-      // update counter
-      counter += 1;
-      // update currentOffset
-      currentOffset -= strokeDashoffsetSteps;
-      if (counter === percentage) {
-        clearInterval(interval);
-      }
-      // update text
-      // update dashOffset
-      svgElement.style.strokeDashoffset = currentOffset;
-    }, 15);
-  }
+    // progressElement.style.background = `conic-gradient(var(--tertiary)  20deg, white 0deg);`;
+    const gradientValue = `conic-gradient(var(--tertiary) ${
+      counter * 3.6
+    }deg, white 0deg)`;
+    progressElement.style.setProperty("background", gradientValue);
+    console.log(progressElement.style.background);
+    // progressElement.style.background = `conic-gradient(var(--tertiary) ${counter * 3.6}deg, white 0deg)`;
+
+    if (counter == percentage) {
+      clearInterval(progess);
+    } else if (!cardComponent.classList.contains("goal-expand")) {
+      clearInterval(progess);
+      const gradientValue = `conic-gradient(var(--tertiary) 0deg, white 0deg)`;
+      progressElement.style.setProperty("background", gradientValue);
+    }
+  }, speed);
+  // console.log(svgElement);
+  // let counter = 0;
+  // let maxCounter = 100;
+  // const totalOffset = 240;
+  // let currentOffset = totalOffset;
+  // const strokeDashoffsetSteps = totalOffset / maxCounter;
+  // if (percentage > 0) {
+  //   let interval = setInterval(() => {
+  //     console.log(
+  //       "run",
+  //       counter,
+  //       strokeDashoffsetSteps,
+  //       percentage,
+  //       svgElement
+  //     );
+  //     // update counter
+  //     counter += 1;
+  //     // update currentOffset
+  //     currentOffset -= strokeDashoffsetSteps;
+  //     if (counter === percentage) {
+  //       clearInterval(interval);
+  //     }
+  //     // update text
+  //     // update dashOffset
+  //     // svgElement.style.svgElement.strokeDashArray = 240;
+  //     svgElement.style.strokeDashoffset = currentOffset;
+  //     // svgElement.setAttributeNS(null, "stroke-dashoffset", currentOffset);
+  //   }, 15);
+  // }
 }
 
 // Utility Functions
