@@ -52,12 +52,33 @@
       </li>
     </ul>
 
-    <div id="deleteModal" class="modal">
+    <div id="delete-modal" class="modal">
       <p>Are you sure you wish to delete goal?</p>
 
-      <button id="deleteYes" class="waves-effect waves-light btn">yes</button>
+      <button id="delete-yes" class="waves-effect waves-light btn">yes</button>
 
-      <button id="deleteNo" class="waves-effect waves-light btn">no</button>
+      <button id="delete-no" class="waves-effect waves-light btn">no</button>
+    </div>
+
+    <div id="add-workout-modal" class="modal">
+      <form class="add-workout-form container section">
+        <h5 class="center">Workout Name</h6>
+        <div class="divider"></div>
+        <p class="center">Log your progress</p>
+        <div class="input-field">
+          <input
+            placeholder="in meters"
+            id="workout-distance"
+            type="text"
+            class="validate"
+          />
+          <label for="workout-distance">Distance (m)</label>
+        </div>
+
+        <div class="input-field center">
+          <button class="btn-small add-workout-btn">Add</button>
+        </div>
+      </form>
     </div>
 
     <!-- <defs>

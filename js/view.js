@@ -1,13 +1,17 @@
 const goalsContainer = document.querySelector(".goals-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
-const deleteGoalModal = document.querySelector("#deleteModal");
+const addWorkoutForm = document.querySelector(".add-workout-form");
+const deleteGoalModal = document.querySelector("#delete-modal");
 const overlay = document.querySelector(".overlay");
-const deleteModalYes = document.querySelector("#deleteYes");
-const deleteModalNo = document.querySelector("#deleteNo");
+const deleteModalYes = document.querySelector("#delete-yes");
+const deleteModalNo = document.querySelector("#delete-no");
+const addWorkoutModal = document.querySelector("#add-workout-modal");
+let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
 
 let goalIdToDelete;
+let selectedGoal;
 
 // EVENT LISTENERS
 
@@ -30,22 +34,18 @@ goalsContainer.addEventListener("click", (event) => {
   const svgElement = parent.querySelector("circle");
   const percentageText = parent.querySelector(".percent-complete").innerHTML;
   let percent = parseInt(percentageText.split("%")[0]);
-
-  console.log(svgElement);
-
   if (delBtn) {
     const goalId = parent.id;
     goalIdToDelete = goalId;
     renderDeleteModal();
   } else if (addBtn) {
-    console.log("ad");
+    renderAddWorkoutModal();
   } else if (logBtn) {
     console.log("lg");
   } else {
     toggleExpandGoal(parent);
-    console.log(parent);
+
     if (parent.classList.contains("goal-expand")) {
-      console.log(percent);
       animateProgressBar(svgElement, percent);
     } else {
       svgElement.style.strokeDashoffset = 240;
@@ -71,6 +71,20 @@ goalForm.addEventListener("submit", (event) => {
 
   console.log(formData);
   addNewGoal(formData);
+});
+
+addWorkoutForm.addEventListener("submit", (e) => {
+  const distance = document.getElementById("workout-distance").value;
+
+  let workoutDto = {
+    goal_id: selectedGoal.id,
+    user_email: user.email,
+    distance: parseInt(distance),
+    date: Date.now(),
+    modality: selectedGoal.modality,
+  };
+  addNewWorkout(workoutDto);
+  // TODO: Render out a toast
 });
 
 deleteModalYes.addEventListener("click", async () => {
@@ -120,11 +134,10 @@ function renderGoals(data) {
   } else {
     lastWorkoutDate = "N/A";
   }
-  console.log(lastWorkoutDate);
 
   const html = `
-    <div id="${data.id}" class="goals  container grey-text text-darken-1">
-    <div class="card-panel goal goal-toggle white s12 row">
+    <div class="goals  container grey-text text-darken-1">
+    <div id="${data.id}" class="card-panel goal goal-toggle white s12 row">
       <div class="s12 workout-icon">${iconHtml}</div>
       <div class="goal-details s6">
       <div class="goal-title">${data.name}</div>
@@ -221,18 +234,32 @@ function closeDeleteModal() {
   overlay.style.display = "none";
 }
 
-function renderAddWorkoutModal() {}
+function renderAddWorkoutModal() {
+  addWorkoutModal.style.display = "block";
+  overlay.style.display = "block";
+  console.log(user);
+}
+
+function closeAddWorkoutModal() {
+  addWorkoutModal.style.display = "none";
+  overlay.style.display = "none";
+}
 
 function toggleExpandGoal(element) {
   element.classList.toggle("goal-expand");
   element.classList.toggle("goal");
+  // toggle selected goal
+  if (element.classList.contains("goal-expand")) {
+    selectedGoal = user.goals.find((goal) => goal.id === element.id);
+  } else {
+    selectedGoal = "";
+  }
+
   let childDropdown = element.querySelector(".goal-dropdown-container");
   childDropdown.classList.toggle("no-display");
 }
 
 function animateProgressBar(svgElement, percentage) {
-  console.log("i ", svgElement);
-
   let counter = 0;
   let maxCounter = 100;
   const totalOffset = 240;
@@ -257,12 +284,10 @@ function animateProgressBar(svgElement, percentage) {
 
 // Utility Functions
 function formatDate(unixDate) {
-  console.log(unixDate);
   const date = new Date(unixDate);
   const day = ("0" + date.getDate()).slice(-2);
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   const year = String(date.getFullYear()).slice(-2);
-  console.log(day, month, year);
   const dateFormat = `${month}/${day}/${year}`;
   return dateFormat;
 }
