@@ -8,6 +8,7 @@ const deleteModalYes = document.querySelector("#delete-yes");
 const deleteModalNo = document.querySelector("#delete-no");
 const addWorkoutModal = document.querySelector("#add-workout-modal");
 const exitAddWorkoutBtn = document.querySelector(".exit-add-workout-btn");
+const addWorkoutGoalTitle = document.querySelector(".add-workout-goal-title");
 let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
 
@@ -236,6 +237,8 @@ function closeDeleteModal() {
 }
 
 function renderAddWorkoutModal() {
+  console.log(selectedGoal.name);
+  addWorkoutGoalTitle.innerText = selectedGoal.name;
   addWorkoutModal.style.display = "block";
   overlay.style.display = "block";
   console.log(user);
@@ -243,6 +246,7 @@ function renderAddWorkoutModal() {
 
 function closeAddWorkoutModal() {
   addWorkoutDistanceInput.value = "";
+  addWorkoutGoalTitle.innerHTML = "";
   addWorkoutModal.style.display = "none";
   overlay.style.display = "none";
 }
@@ -263,7 +267,6 @@ function toggleExpandGoal(element) {
 
 function animateProgressBar(progressElement, percentage) {
   let cardComponent = progressElement.closest(".goal-toggle");
-  console.log(cardComponent);
   let counter = 0;
   let speed = 25;
   let progess = setInterval(() => {
