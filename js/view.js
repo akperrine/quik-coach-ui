@@ -7,8 +7,11 @@ const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#delete-yes");
 const deleteModalNo = document.querySelector("#delete-no");
 const addWorkoutModal = document.querySelector("#add-workout-modal");
+const exitAddWorkoutBtn = document.querySelector(".exit-add-workout-btn");
 let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
+
+let addWorkoutDistanceInput = document.querySelector("#workout-distance");
 
 let goalIdToDelete;
 let selectedGoal;
@@ -103,6 +106,8 @@ deleteModalNo.addEventListener("click", () => {
   goalIdToDelete = "";
   closeDeleteModal();
 });
+
+exitAddWorkoutBtn.addEventListener("click", closeAddWorkoutModal);
 
 function handleGoalDelete(id) {
   console.log("Delete button clicked!");
@@ -237,6 +242,7 @@ function renderAddWorkoutModal() {
 }
 
 function closeAddWorkoutModal() {
+  addWorkoutDistanceInput.value = "";
   addWorkoutModal.style.display = "none";
   overlay.style.display = "none";
 }
@@ -259,56 +265,24 @@ function animateProgressBar(progressElement, percentage) {
   let cardComponent = progressElement.closest(".goal-toggle");
   console.log(cardComponent);
   let counter = 0;
-  let speed = 50;
+  let speed = 25;
   let progess = setInterval(() => {
     counter++;
-    console.log(counter);
 
-    // progressElement.style.background = `conic-gradient(var(--tertiary)  20deg, white 0deg);`;
-    const gradientValue = `conic-gradient(var(--tertiary) ${
+    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
       counter * 3.6
-    }deg, white 0deg)`;
+    }deg, white ${counter * 3.6 + 1}deg)`;
     progressElement.style.setProperty("background", gradientValue);
-    console.log(progressElement.style.background);
     // progressElement.style.background = `conic-gradient(var(--tertiary) ${counter * 3.6}deg, white 0deg)`;
 
     if (counter == percentage) {
       clearInterval(progess);
     } else if (!cardComponent.classList.contains("goal-expand")) {
       clearInterval(progess);
-      const gradientValue = `conic-gradient(var(--tertiary) 0deg, white 0deg)`;
+      const gradientValue = `conic-gradient(white 0deg, var(--tertiary) 0.0deg, white 0.0deg)`;
       progressElement.style.setProperty("background", gradientValue);
     }
   }, speed);
-  // console.log(svgElement);
-  // let counter = 0;
-  // let maxCounter = 100;
-  // const totalOffset = 240;
-  // let currentOffset = totalOffset;
-  // const strokeDashoffsetSteps = totalOffset / maxCounter;
-  // if (percentage > 0) {
-  //   let interval = setInterval(() => {
-  //     console.log(
-  //       "run",
-  //       counter,
-  //       strokeDashoffsetSteps,
-  //       percentage,
-  //       svgElement
-  //     );
-  //     // update counter
-  //     counter += 1;
-  //     // update currentOffset
-  //     currentOffset -= strokeDashoffsetSteps;
-  //     if (counter === percentage) {
-  //       clearInterval(interval);
-  //     }
-  //     // update text
-  //     // update dashOffset
-  //     // svgElement.style.svgElement.strokeDashArray = 240;
-  //     svgElement.style.strokeDashoffset = currentOffset;
-  //     // svgElement.setAttributeNS(null, "stroke-dashoffset", currentOffset);
-  //   }, 15);
-  // }
 }
 
 // Utility Functions

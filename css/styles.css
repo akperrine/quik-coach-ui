@@ -106,7 +106,9 @@ nav .sidenav-trigger {
   justify-content: center;
   align-items: center;
 
-  background: conic-gradient(var(--tertiary) 0deg, white 0deg);
+  background: conic-gradient(white 0deg, var(--tertiary) 0deg, white 0deg);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .goal-dropdown-inner {
@@ -189,6 +191,24 @@ nav .sidenav-trigger {
 .last-workout-container > p {
   margin: 0px;
   font-size: 12px;
+}
+
+.exit-add-workout-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 1.8rem;
+  width: 1.8rem;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  vertical-align: 15%;
+}
+.exit-add-workout-btn > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
 }
 
 /* circle {
