@@ -101,16 +101,23 @@ nav .sidenav-trigger {
   box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
     -6px -6px 10px -1px rgba(225, 225, 225, 0.497);
   border-radius: 50%;
-  position: relative;
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: conic-gradient(white 0deg, var(--tertiary) 0deg, white 0deg);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .goal-dropdown-inner {
-  position: absolute;
+  /* position: absolute; */
   height: 65px;
   width: 65px;
   left: 13.5%;
   top: 13.5%;
-  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+  box-shadow: inset 3px 3px 4px -1px rgba(0, 0, 0, 0.2),
     inset -4px -4px 6px -1px rgba(225, 225, 225, 0.1),
     -0.5px -0.5px 0px rgba(225, 225, 225, 0.1),
     0.5px 0.5px 5px 0px rgba(0, 0, 0, 0.15),
@@ -119,6 +126,7 @@ nav .sidenav-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 }
 
 .goal-dropdown-btn-container {
@@ -185,7 +193,25 @@ nav .sidenav-trigger {
   font-size: 12px;
 }
 
-circle {
+.exit-add-workout-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 1.8rem;
+  width: 1.8rem;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  vertical-align: 15%;
+}
+.exit-add-workout-btn > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+/* circle {
   fill: none;
   stroke: url(#GradientColor);
   stroke-width: 14px;
@@ -194,7 +220,7 @@ circle {
   cy: 45;
   stroke-dasharray: 240;
   stroke-dashoffset: 240;
-}
+} */
 
 /* .circle-animation { */
 /* transition: stroke-dashoffset 1.2s linear forwards; */
@@ -207,12 +233,12 @@ circle {
   }
 } */
 
-svg {
+/* svg {
   transform: rotate(-90deg);
   position: absolute;
   top: -11%;
   left: 0%;
-}
+} */
 
 /* form-styles */
 .add-btn {

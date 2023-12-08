@@ -52,34 +52,42 @@
       </li>
     </ul>
 
-    <div id="deleteModal" class="modal">
+    <div id="delete-modal" class="modal">
       <p>Are you sure you wish to delete goal?</p>
 
-      <button id="deleteYes" class="waves-effect waves-light btn">yes</button>
+      <button id="delete-yes" class="waves-effect waves-light btn">yes</button>
 
-      <button id="deleteNo" class="waves-effect waves-light btn">no</button>
+      <button id="delete-no" class="waves-effect waves-light btn">no</button>
     </div>
 
-    <!-- <defs>
-      <linearGradient id="GradientColor">
-        <stop offset="0%" stop-color="green" />
-        <stop offset="100%" stop-color="blue" />
-      </linearGradient>
-    </defs> -->
+    <div id="add-workout-modal" class="modal">
+      <button class="exit-add-workout-btn btn-floating waves-effect waves-light grey">
+        <span class="material-symbols-outlined">
+          close
+          </span>
+      </button>
+      <form class="add-workout-form container section">
+        <h5 class="center add-workout-goal-title">Workout Name</h6>
+        <div class="divider"></div>
+        <p class="center">Log your workout</p>
+        <div class="input-field">
+          <input
+            placeholder="in meters"
+            id="workout-distance"
+            type="text"
+            class="validate"
+          />
+          <label for="workout-distance">Distance (m)</label>
+        </div>
+
+        <div class="input-field center">
+          <button class="btn-small add-workout-btn">Add</button>
+        </div>
+      </form>
+    </div>
+
     <div class="goals-container">
-      <!-- <div class="goals container grey-text text-darken-1"> -->
-      <!-- <div class="card-panel goal white row">
-        <span class="material-icons"> directions_run </span>
-        
-        <div class="goal-details">
-          <div class="goal-title">Run Arizona</div>
-          <div class="goal-ingredients">Latest Workout: 12/01/23</div>
-        </div>
-        <div class="goal-delete">
-          <i class="material-icons">delete_outline</i>
-        </div>
-      </div> -->
-      <!-- </div> -->
+    
     </div>
 
     <div class="center">
@@ -146,5 +154,18 @@
     <script src="/js/view.js"></script>
     <script src="/js/model.js"></script>
     <script src="/js/service.js"></script>
+    <!--
+  **Unused svg
+  <svg id="bar-${data.id}" width="100" height="100">
+  <defs>
+  <linearGradient id="GradientColor">
+  <stop offset="0%" stop-color="#76b947" />
+  <stop offset="100%" stop-color="#2f5233" />
+  </linearGradient>
+  </defs>
+  <circle id="circle-${data.id}" stroke-dasharray="240"/>
+  </svg> -->
   </body>
 </html>
+
+

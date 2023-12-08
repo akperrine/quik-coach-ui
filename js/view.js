@@ -1,13 +1,21 @@
 const goalsContainer = document.querySelector(".goals-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
-const deleteGoalModal = document.querySelector("#deleteModal");
+const addWorkoutForm = document.querySelector(".add-workout-form");
+const deleteGoalModal = document.querySelector("#delete-modal");
 const overlay = document.querySelector(".overlay");
-const deleteModalYes = document.querySelector("#deleteYes");
-const deleteModalNo = document.querySelector("#deleteNo");
+const deleteModalYes = document.querySelector("#delete-yes");
+const deleteModalNo = document.querySelector("#delete-no");
+const addWorkoutModal = document.querySelector("#add-workout-modal");
+const exitAddWorkoutBtn = document.querySelector(".exit-add-workout-btn");
+const addWorkoutGoalTitle = document.querySelector(".add-workout-goal-title");
+let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
 
+let addWorkoutDistanceInput = document.querySelector("#workout-distance");
+
 let goalIdToDelete;
+let selectedGoal;
 
 // EVENT LISTENERS
 
@@ -27,28 +35,29 @@ goalsContainer.addEventListener("click", (event) => {
   const parent = event.target.closest(".goal-toggle");
   const addBtn = event.target.closest(".add-workout-btn");
   const logBtn = event.target.closest(".view-log-btn");
-  const svgElement = parent.querySelector("circle");
+  const progressElement = parent.querySelector(".goal-dropdown-outer");
+  // const circle = document.querySelector(`#circle-${sel.id}`);
+  // console.log("circl", circle);
+
   const percentageText = parent.querySelector(".percent-complete").innerHTML;
   let percent = parseInt(percentageText.split("%")[0]);
-
-  console.log(svgElement);
-
   if (delBtn) {
     const goalId = parent.id;
     goalIdToDelete = goalId;
     renderDeleteModal();
   } else if (addBtn) {
-    console.log("ad");
+    renderAddWorkoutModal();
   } else if (logBtn) {
     console.log("lg");
   } else {
     toggleExpandGoal(parent);
-    console.log(parent);
+
     if (parent.classList.contains("goal-expand")) {
-      console.log(percent);
-      animateProgressBar(svgElement, percent);
+      console.log("cont goal-exp", progressElement, percent);
+      animateProgressBar(progressElement, percent);
     } else {
-      svgElement.style.strokeDashoffset = 240;
+      const gradientValue = `conic-gradient(var(--tertiary) 0deg, white 0deg)`;
+      progressElement.style.setProperty("background", gradientValue);
     }
   }
 });
@@ -73,6 +82,19 @@ goalForm.addEventListener("submit", (event) => {
   addNewGoal(formData);
 });
 
+addWorkoutForm.addEventListener("submit", (e) => {
+  const distance = document.getElementById("workout-distance").value;
+
+  let workoutDto = {
+    goal_id: selectedGoal.id,
+    user_email: user.email,
+    distance: parseInt(distance),
+    date: Date.now(),
+    modality: selectedGoal.modality,
+  };
+  addNewWorkout(workoutDto);
+});
+
 deleteModalYes.addEventListener("click", async () => {
   if (goalIdToDelete !== "") {
     await deleteGoal(goalIdToDelete);
@@ -85,6 +107,8 @@ deleteModalNo.addEventListener("click", () => {
   goalIdToDelete = "";
   closeDeleteModal();
 });
+
+exitAddWorkoutBtn.addEventListener("click", closeAddWorkoutModal);
 
 function handleGoalDelete(id) {
   console.log("Delete button clicked!");
@@ -120,11 +144,10 @@ function renderGoals(data) {
   } else {
     lastWorkoutDate = "N/A";
   }
-  console.log(lastWorkoutDate);
 
   const html = `
-    <div id="${data.id}" class="goals  container grey-text text-darken-1">
-    <div class="card-panel goal goal-toggle white s12 row">
+    <div class="goals  container grey-text text-darken-1">
+    <div id="${data.id}" class="card-panel goal goal-toggle white s12 row">
       <div class="s12 workout-icon">${iconHtml}</div>
       <div class="goal-details s6">
       <div class="goal-title">${data.name}</div>
@@ -132,20 +155,12 @@ function renderGoals(data) {
       <div class="goal-dropdown-container no-display">
         <div class="goal-dropdown-top-container">
         <div class="goal-dropdown-outer">
-          <svg id="bar-${data.id}" width="100" height="100">
-          <defs>
-          <linearGradient id="GradientColor">
-          <stop offset="0%" stop-color="#76b947" />
-          <stop offset="100%" stop-color="#2f5233" />
-          </linearGradient>
-          </defs>
-          <circle />
-          </svg>
           <div class="goal-dropdown-inner">
-              <div class="percent-complete">
+            <div class="percent-complete">
               ${percentComp}%
-              </div>
-          </div>  
+            </div>
+          </div>
+     
           </div>
           <div class="goal-dropdown-top-right">
             <p><b>Complete:</b> ${completed}m</p>
@@ -221,48 +236,64 @@ function closeDeleteModal() {
   overlay.style.display = "none";
 }
 
-function renderAddWorkoutModal() {}
+function renderAddWorkoutModal() {
+  console.log(selectedGoal.name);
+  addWorkoutGoalTitle.innerText = selectedGoal.name;
+  addWorkoutModal.style.display = "block";
+  overlay.style.display = "block";
+  console.log(user);
+}
+
+function closeAddWorkoutModal() {
+  addWorkoutDistanceInput.value = "";
+  addWorkoutGoalTitle.innerHTML = "";
+  addWorkoutModal.style.display = "none";
+  overlay.style.display = "none";
+}
 
 function toggleExpandGoal(element) {
   element.classList.toggle("goal-expand");
   element.classList.toggle("goal");
+  // toggle selected goal
+  if (element.classList.contains("goal-expand")) {
+    selectedGoal = user.goals.find((goal) => goal.id === element.id);
+  } else {
+    selectedGoal = "";
+  }
+
   let childDropdown = element.querySelector(".goal-dropdown-container");
   childDropdown.classList.toggle("no-display");
 }
 
-function animateProgressBar(svgElement, percentage) {
-  console.log("i ", svgElement);
-
+function animateProgressBar(progressElement, percentage) {
+  let cardComponent = progressElement.closest(".goal-toggle");
   let counter = 0;
-  let maxCounter = 100;
-  const totalOffset = 240;
-  let currentOffset = totalOffset;
-  const strokeDashoffsetSteps = totalOffset / maxCounter;
+  let speed = 25;
+  let progess = setInterval(() => {
+    counter++;
 
-  if (percentage > 0) {
-    let interval = setInterval(() => {
-      // update counter
-      counter += 1;
-      // update currentOffset
-      currentOffset -= strokeDashoffsetSteps;
-      if (counter === percentage) {
-        clearInterval(interval);
-      }
-      // update text
-      // update dashOffset
-      svgElement.style.strokeDashoffset = currentOffset;
-    }, 15);
-  }
+    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
+      counter * 3.6
+    }deg, white ${counter * 3.6 + 1}deg)`;
+    progressElement.style.setProperty("background", gradientValue);
+    // progressElement.style.background = `conic-gradient(var(--tertiary) ${counter * 3.6}deg, white 0deg)`;
+
+    if (counter == percentage) {
+      clearInterval(progess);
+    } else if (!cardComponent.classList.contains("goal-expand")) {
+      clearInterval(progess);
+      const gradientValue = `conic-gradient(white 0deg, var(--tertiary) 0.0deg, white 0.0deg)`;
+      progressElement.style.setProperty("background", gradientValue);
+    }
+  }, speed);
 }
 
 // Utility Functions
 function formatDate(unixDate) {
-  console.log(unixDate);
   const date = new Date(unixDate);
   const day = ("0" + date.getDate()).slice(-2);
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   const year = String(date.getFullYear()).slice(-2);
-  console.log(day, month, year);
   const dateFormat = `${month}/${day}/${year}`;
   return dateFormat;
 }

@@ -66,3 +66,19 @@ async function deleteGoal(id) {
     console.log(error);
   }
 }
+
+async function addNewWorkout(workoutDto) {
+  try {
+    const response = await fetch(`${URL}${PORT}/workouts/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workoutDto),
+    }).then((res) => res.json());
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
