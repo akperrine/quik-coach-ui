@@ -7,10 +7,12 @@ const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#delete-yes");
 const deleteModalNo = document.querySelector("#delete-no");
 const addWorkoutModal = document.querySelector("#add-workout-modal");
-const exitAddWorkoutBtn = document.querySelector(".exit-add-workout-btn");
+const exitModalBtns = document.querySelectorAll(".exit-modal-btn");
 const addWorkoutGoalTitle = document.querySelector(".add-workout-goal-title");
 let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
+
+let workoutLogModal = document.querySelector("#workouts-log-modal");
 
 let addWorkoutDistanceInput = document.querySelector("#workout-distance");
 
@@ -48,7 +50,7 @@ goalsContainer.addEventListener("click", (event) => {
   } else if (addBtn) {
     renderAddWorkoutModal();
   } else if (logBtn) {
-    console.log("lg");
+    renderWorkoutLogModal();
   } else {
     toggleExpandGoal(parent);
 
@@ -108,19 +110,13 @@ deleteModalNo.addEventListener("click", () => {
   closeDeleteModal();
 });
 
-exitAddWorkoutBtn.addEventListener("click", closeAddWorkoutModal);
+exitModalBtns.forEach((btn) => btn.addEventListener("click", closeModals));
 
 function handleGoalDelete(id) {
   console.log("Delete button clicked!");
   deleteGoal(id);
 }
 
-function addWorkoutBtnListener() {
-  let addWorkoutBtn = document.querySelector(".workout-btn");
-  addWorkoutBtn.addEventListener("click", () => {
-    console.log("cli");
-  });
-}
 // Rendering Functions
 
 function renderGoals(data) {
@@ -226,6 +222,11 @@ function renderModalityIcon(modality) {
 }
 
 // Render Modals
+function renderWorkoutLogModal() {
+  workoutLogModal.style.display = "block";
+}
+function closeWorkoutLogModal() {}
+
 function renderDeleteModal() {
   deleteGoalModal.style.display = "block";
   overlay.style.display = "block";
@@ -244,10 +245,16 @@ function renderAddWorkoutModal() {
   console.log(user);
 }
 
-function closeAddWorkoutModal() {
-  addWorkoutDistanceInput.value = "";
-  addWorkoutGoalTitle.innerHTML = "";
-  addWorkoutModal.style.display = "none";
+function closeModals() {
+  console.log("g");
+  if (addWorkoutModal.style.display === "block") {
+    addWorkoutDistanceInput.value = "";
+    addWorkoutGoalTitle.innerHTML = "";
+    addWorkoutModal.style.display = "none";
+  }
+  if (workoutLogModal.style.display === "block") {
+    workoutLogModal.style.display = "none";
+  }
   overlay.style.display = "none";
 }
 

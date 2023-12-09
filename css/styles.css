@@ -193,7 +193,7 @@ nav .sidenav-trigger {
   font-size: 12px;
 }
 
-.exit-add-workout-btn {
+.exit-modal-btn {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -204,7 +204,7 @@ nav .sidenav-trigger {
   align-items: center; */
   vertical-align: 15%;
 }
-.exit-add-workout-btn > span {
+.exit-modal-btn > span {
   display: flex;
   justify-content: center;
   align-items: center;
