@@ -1,4 +1,5 @@
 const goalsContainer = document.querySelector(".goals-container");
+const workoutsContainer = document.querySelector("#goal-workouts-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
 const addWorkoutForm = document.querySelector(".add-workout-form");
@@ -126,12 +127,10 @@ function renderGoals(data) {
   // **Would potentially be better if API always return completed and empty workout array if not present
   let completed = data.current_distance;
 
-  // if (!data.workouts) {
-  //   percentComp = 0;
-  // } else {
   percentComp = Math.floor((completed / data.target_distance) * 100);
+  console.log(percentComp);
   if (percentComp > 100) {
-    percentComplete = 100;
+    percentComp = 100;
   }
   // }
   let lastWorkoutDate;
@@ -221,11 +220,31 @@ function renderModalityIcon(modality) {
   return iconTag;
 }
 
+function renderWorkouts() {
+  if (selectedGoal.workouts) {
+    console.log(selectedGoal, workoutsContainer);
+    selectedGoal.workouts.forEach((workout) => {
+      let html = `
+      <div class="workout container grey-text">
+        Date: ${formatDate(workout.date)}<br/>Distance: ${workout.distance}m
+      </div>
+    `;
+      workoutsContainer.innerHTML += html;
+      console.log(workoutsContainer.innerHTML);
+    });
+  }
+}
+
 // Render Modals
 function renderWorkoutLogModal() {
+  renderWorkouts();
   workoutLogModal.style.display = "block";
+  overlay.style.display = "block";
 }
-function closeWorkoutLogModal() {}
+function closeWorkoutLogModal() {
+  workoutLogModal.style.display = "block";
+  overlay.style.display = "block";
+}
 
 function renderDeleteModal() {
   deleteGoalModal.style.display = "block";
@@ -246,7 +265,6 @@ function renderAddWorkoutModal() {
 }
 
 function closeModals() {
-  console.log("g");
   if (addWorkoutModal.style.display === "block") {
     addWorkoutDistanceInput.value = "";
     addWorkoutGoalTitle.innerHTML = "";
@@ -277,14 +295,6 @@ function animateProgressBar(progressElement, percentage) {
   let counter = 0;
   let speed = 25;
   let progess = setInterval(() => {
-    counter++;
-
-    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
-      counter * 3.6
-    }deg, white ${counter * 3.6 + 1}deg)`;
-    progressElement.style.setProperty("background", gradientValue);
-    // progressElement.style.background = `conic-gradient(var(--tertiary) ${counter * 3.6}deg, white 0deg)`;
-
     if (counter == percentage) {
       clearInterval(progess);
     } else if (!cardComponent.classList.contains("goal-expand")) {
@@ -292,6 +302,12 @@ function animateProgressBar(progressElement, percentage) {
       const gradientValue = `conic-gradient(white 0deg, var(--tertiary) 0.0deg, white 0.0deg)`;
       progressElement.style.setProperty("background", gradientValue);
     }
+
+    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
+      counter * 3.6
+    }deg, white ${counter * 3.6 + 1}deg)`;
+    progressElement.style.setProperty("background", gradientValue);
+    counter++;
   }, speed);
 }
 
