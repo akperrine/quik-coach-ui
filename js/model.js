@@ -34,7 +34,6 @@ async function fetchGoals() {
   user.goals.forEach((goal) => {
     renderGoals(goal);
   });
-  addWorkoutBtnListener();
 }
 
 async function addNewGoal(goal) {

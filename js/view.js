@@ -1,4 +1,5 @@
 const goalsContainer = document.querySelector(".goals-container");
+const workoutsContainer = document.querySelector("#goal-workouts-container");
 const goals = document.querySelector(".goals");
 const goalForm = document.querySelector(".goal-form");
 const addWorkoutForm = document.querySelector(".add-workout-form");
@@ -7,10 +8,12 @@ const overlay = document.querySelector(".overlay");
 const deleteModalYes = document.querySelector("#delete-yes");
 const deleteModalNo = document.querySelector("#delete-no");
 const addWorkoutModal = document.querySelector("#add-workout-modal");
-const exitAddWorkoutBtn = document.querySelector(".exit-add-workout-btn");
+const exitModalBtns = document.querySelectorAll(".exit-modal-btn");
 const addWorkoutGoalTitle = document.querySelector(".add-workout-goal-title");
 let addWorkoutBtn = document.querySelector(".add-workout-btn");
 let percentComplete = document.querySelector(".percent-complete");
+
+let workoutLogModal = document.querySelector("#workouts-log-modal");
 
 let addWorkoutDistanceInput = document.querySelector("#workout-distance");
 
@@ -48,7 +51,7 @@ goalsContainer.addEventListener("click", (event) => {
   } else if (addBtn) {
     renderAddWorkoutModal();
   } else if (logBtn) {
-    console.log("lg");
+    renderWorkoutLogModal();
   } else {
     toggleExpandGoal(parent);
 
@@ -108,19 +111,13 @@ deleteModalNo.addEventListener("click", () => {
   closeDeleteModal();
 });
 
-exitAddWorkoutBtn.addEventListener("click", closeAddWorkoutModal);
+exitModalBtns.forEach((btn) => btn.addEventListener("click", closeModals));
 
 function handleGoalDelete(id) {
   console.log("Delete button clicked!");
   deleteGoal(id);
 }
 
-function addWorkoutBtnListener() {
-  let addWorkoutBtn = document.querySelector(".workout-btn");
-  addWorkoutBtn.addEventListener("click", () => {
-    console.log("cli");
-  });
-}
 // Rendering Functions
 
 function renderGoals(data) {
@@ -130,12 +127,10 @@ function renderGoals(data) {
   // **Would potentially be better if API always return completed and empty workout array if not present
   let completed = data.current_distance;
 
-  // if (!data.workouts) {
-  //   percentComp = 0;
-  // } else {
   percentComp = Math.floor((completed / data.target_distance) * 100);
+  console.log(percentComp);
   if (percentComp > 100) {
-    percentComplete = 100;
+    percentComp = 100;
   }
   // }
   let lastWorkoutDate;
@@ -225,7 +220,32 @@ function renderModalityIcon(modality) {
   return iconTag;
 }
 
+function renderWorkouts() {
+  if (selectedGoal.workouts) {
+    console.log(selectedGoal, workoutsContainer);
+    selectedGoal.workouts.forEach((workout) => {
+      let html = `
+      <div class="workout container grey-text">
+        Date: ${formatDate(workout.date)}<br/>Distance: ${workout.distance}m
+      </div>
+    `;
+      workoutsContainer.innerHTML += html;
+      console.log(workoutsContainer.innerHTML);
+    });
+  }
+}
+
 // Render Modals
+function renderWorkoutLogModal() {
+  renderWorkouts();
+  workoutLogModal.style.display = "block";
+  overlay.style.display = "block";
+}
+function closeWorkoutLogModal() {
+  workoutLogModal.style.display = "block";
+  overlay.style.display = "block";
+}
+
 function renderDeleteModal() {
   deleteGoalModal.style.display = "block";
   overlay.style.display = "block";
@@ -244,10 +264,15 @@ function renderAddWorkoutModal() {
   console.log(user);
 }
 
-function closeAddWorkoutModal() {
-  addWorkoutDistanceInput.value = "";
-  addWorkoutGoalTitle.innerHTML = "";
-  addWorkoutModal.style.display = "none";
+function closeModals() {
+  if (addWorkoutModal.style.display === "block") {
+    addWorkoutDistanceInput.value = "";
+    addWorkoutGoalTitle.innerHTML = "";
+    addWorkoutModal.style.display = "none";
+  }
+  if (workoutLogModal.style.display === "block") {
+    workoutLogModal.style.display = "none";
+  }
   overlay.style.display = "none";
 }
 
@@ -270,14 +295,6 @@ function animateProgressBar(progressElement, percentage) {
   let counter = 0;
   let speed = 25;
   let progess = setInterval(() => {
-    counter++;
-
-    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
-      counter * 3.6
-    }deg, white ${counter * 3.6 + 1}deg)`;
-    progressElement.style.setProperty("background", gradientValue);
-    // progressElement.style.background = `conic-gradient(var(--tertiary) ${counter * 3.6}deg, white 0deg)`;
-
     if (counter == percentage) {
       clearInterval(progess);
     } else if (!cardComponent.classList.contains("goal-expand")) {
@@ -285,6 +302,12 @@ function animateProgressBar(progressElement, percentage) {
       const gradientValue = `conic-gradient(white 0deg, var(--tertiary) 0.0deg, white 0.0deg)`;
       progressElement.style.setProperty("background", gradientValue);
     }
+
+    const gradientValue = `conic-gradient(var(--tertiary), var(--tertiary) ${
+      counter * 3.6
+    }deg, white ${counter * 3.6 + 1}deg)`;
+    progressElement.style.setProperty("background", gradientValue);
+    counter++;
   }, speed);
 }
 
